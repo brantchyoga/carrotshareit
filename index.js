@@ -19,7 +19,16 @@ app.use(express.static(path.resolve(__dirname, 'client', 'build')));
 
 app.post('/search', (req,res,next)=>{
   console.log(req.body);
-  res.send({hello:'helloworld'});
+  req.body.zip = parseInt(req.body.zip)
+  console.log(req.body);
+  Share.create(req.body, function(err, share) {
+    if (err) {
+      console.log("GOT AN ERROR CREATING THE Share", err)
+      res.send(err)
+    } else {
+      res.json({share})
+    }
+  })
 })
 
 
