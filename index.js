@@ -31,6 +31,15 @@ app.post('/search', (req,res,next)=>{
   })
 })
 
+app.post('/list', (req,res,next)=>{
+  req.body.zip = parseInt(req.body.zip)
+  console.log(req.body);
+  Share.find(req.body).lean().exec(function(err,shares){
+    console.log(shares)
+    res.json(shares)
+  })
+})
+
 
 app.get('*', function(req, res, next) {
 	res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
